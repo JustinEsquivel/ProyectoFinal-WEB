@@ -1,0 +1,46 @@
+@model RecuperarContrasenaViewModel
+@{
+    ViewData["Title"] = "Recuperar contraseña";
+    Layout = "_LayoutExternal";
+}
+
+<partial name="_AuthIcons" />
+
+<section class="auth-form padding-medium">
+    <div class="container-lg">
+        <div class="row justify-content-evenly align-items-center">
+            <div class="col-md-8 col-lg-5 col-xl-4 text-center">
+                <h2 class="auth-title">Recuperar contraseña</h2>
+                <p class="my-4">Para restablecer su contraseña, ingrese el correo electrónico con el que se registró.</p>
+
+                <form asp-action="RecuperarContrasena" method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger text-start"></div>
+
+                    <div class="mb-4 text-start">
+                        <div class="position-relative">
+                            <input asp-for="Correo" type="email" class="form-control px-5 py-3 shadow-sm" placeholder="Correo electrónico" autocomplete="email">
+                            <svg class="auth-icon position-absolute top-50 start-0 translate-middle-y ms-3" width="22" height="22"><use href="#auth-letter" /></svg>
+                        </div>
+                        <span asp-validation-for="Correo" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-grid">
+                        <button class="btn btn-primary" type="submit">Enviar enlace</button>
+                    </div>
+                </form>
+
+                <p class="mt-4">
+                    ¿Ya la recordó?
+                    <a asp-action="IniciarSesion" class="text-decoration-none text-primary">Volver a iniciar sesión</a>
+                </p>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <img src="~/images/img-login.jpg" alt="" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
