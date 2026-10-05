@@ -10,14 +10,14 @@ Todas las reglas van bajo .auth-form para no afectar al resto del sitio.
 }
 
 .auth-form .auth-title {
-  color: var(--bs-secondary);
+  color: var(--bs-primary);
   font-weight: 700;
   text-transform: capitalize;
 }
 
 /* Campos */
 .auth-form .form-control {
-  border-color: #e6e6e6;
+  border-color:  #cbdcc5;
   border-radius: 0.5rem;
 }
 
@@ -39,7 +39,7 @@ Todas las reglas van bajo .auth-form para no afectar al resto del sitio.
 
 .auth-form .auth-icon,
 .auth-form .toggle-password {
-  color: var(--bs-secondary);
+  color: var(--bs-primary);
   opacity: 0.5;
 }
 

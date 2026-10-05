@@ -14,70 +14,65 @@ This is main CSS file that contains custom style rules used in this template
 /** VARIABLES
 --------------------------------------------------------------*/
 body {
-  --heading-font        : "Inter", sans-serif;
-  --bs-link-color: #333;
-  --bs-link-hover-color:#333;
-
-  --bs-link-color-rgb: 40,40,40;
-  --bs-link-hover-color-rgb: 0,0,0;
-
-  --bs-light-rgb: 248, 248, 248;
-
-  --bs-font-sans-serif: "Inter", sans-serif;
-  --bs-body-font-family: var(--bs-font-sans-serif);
-  --bs-body-font-size: 1rem;
-  --bs-body-font-weight: 400;
-  --bs-body-line-height: 2;
-  --bs-body-color: #747474;
-
-  --bs-primary: #6BB252;
-  --bs-primary-rgb: 107, 178, 82;
-  
-  --bs-secondary: #364127;
-  --bs-secondary-rgb: 54, 65, 39;
-  
-  --bs-danger: #F95F09;
-  --bs-danger-rgb: 249, 95, 9;
-
-  --bs-success: #a3be4c;
-  --bs-success-rgb: 163, 190, 76;
-  
-  --bs-primary-bg-subtle: #FFF9EB;
-  --bs-success-bg-subtle: #eef5e5;
-  
-  --bs-border-color: #F7F7F7;
+    --heading-font: "Inter", sans-serif;
+    --bs-link-color: #004b23;
+    --bs-link-hover-color: #356000;
+    --bs-link-color-rgb: 0, 75, 35;
+    --bs-link-hover-color-rgb: 53, 96, 0;
+    --bs-light-rgb: 248, 248, 248;
+    --bs-font-sans-serif: "Inter", sans-serif;
+    --bs-body-font-family: var(--bs-font-sans-serif);
+    --bs-body-font-size: 1rem;
+    --bs-body-font-weight: 400;
+    --bs-body-line-height: 2;
+    --bs-body-color: #747474;
+    /*Los colores son Verde oscuro  */
+    --bs-primary: #004b23;
+    --bs-primary-rgb: 0, 75, 35;
+    /*Los colores son verde lima  */
+    --bs-secondary: #63ad00;
+    --bs-secondary-rgb: 99, 173, 0;
+    --bs-danger: #F95F09;
+    --bs-danger-rgb: 249, 95, 9;
+    --bs-success: #63ad00;
+    --bs-success-rgb: 99, 173, 0;
+    --bs-primary-bg-subtle: #edf5e8;
+    --bs-success-bg-subtle: #edf5e8;
+    --bs-border-color: #F7F7F7;
 }
+
 .btn-primary {
-  --bs-btn-color: #fff;
-  --bs-btn-bg: var(--bs-primary);
-  --bs-btn-border-color: transparent;
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #f7a422;
-  --bs-btn-hover-border-color: transparent;
-  --bs-btn-focus-shadow-rgb: 49,132,253;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: var(--bs-primary);
-  --bs-btn-active-border-color: transparent;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff;
-  --bs-btn-disabled-bg: #d3d7dd;
-  --bs-btn-disabled-border-color: transparent;
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-border-color: transparent;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: #356000;
+    --bs-btn-hover-border-color: transparent;
+    --bs-btn-focus-shadow-rgb: 0, 75, 35;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--bs-primary);
+    --bs-btn-active-border-color: transparent;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #fff;
+    --bs-btn-disabled-bg: #d3d7dd;
+    --bs-btn-disabled-border-color: transparent;
 }
+
 .btn-outline-primary {
-  --bs-btn-color: var(--bs-primary);
-  --bs-btn-border-color: var(--bs-primary);
-  --bs-btn-hover-color: #fff;
-  --bs-btn-hover-bg: #ffc107;
-  --bs-btn-hover-border-color: #ffc107;
-  --bs-btn-focus-shadow-rgb: 13,110,253;
-  --bs-btn-active-color: #fff;
-  --bs-btn-active-bg: #ffc107;
-  --bs-btn-active-border-color: #ffc107;
-  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-  --bs-btn-disabled-color: #fff3cd;
-  --bs-btn-disabled-bg: transparent;
-  --bs-btn-disabled-border-color: #fff3cd;
-  --bs-gradient: none;
+    --bs-btn-color: var(--bs-primary);
+    --bs-btn-border-color: var(--bs-primary);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--bs-primary);
+    --bs-btn-hover-border-color: var(--bs-primary);
+    --bs-btn-focus-shadow-rgb: 0, 75, 35;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--bs-primary);
+    --bs-btn-active-border-color: var(--bs-primary);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: var(--bs-primary);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--bs-primary);
+    --bs-gradient: none;
 }
 .btn-outline-light {
   --bs-btn-color: #747474;
