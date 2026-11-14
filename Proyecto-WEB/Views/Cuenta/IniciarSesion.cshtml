@@ -18,6 +18,11 @@
                     <div class="alert alert-success text-start" role="alert">@mensaje</div>
                 }
 
+                @if (TempData["MensajeError"] is string mensajeError)
+                {
+                    <div class="alert alert-warning text-start" role="alert">@mensajeError</div>
+                }
+
                 <form asp-action="IniciarSesion" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger text-start"></div>
 

@@ -298,34 +298,48 @@
 
                 <div class="col-lg-4">
                     <ul class="navbar-nav list-unstyled d-flex flex-row gap-3 gap-lg-3 justify-content-center flex-wrap align-items-center mb-0 fw-bold text-uppercase text-dark fs-7">
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link">Productos</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link">Categorías</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link">Inventario</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link">Ventas</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link">Proveedores</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-controller="Home" asp-action="Index" class="nav-link">Usuarios</a>
-                        </li>
+                        @if (Context.Session.EsAdministrador())
+                        {
+                            @* Menú del Administrador - Keylor agrega aquí Categorías, Productos, Pedidos y Usuarios *@
+                            <li class="nav-item">
+                                <a asp-controller="Admin" asp-action="Index" class="nav-link">Panel</a>
+                            </li>
+                        }
+                        else
+                        {
+                            @* Menú del Visitante y del Cliente *@
+                            <li class="nav-item">
+                                <a asp-controller="Home" asp-action="Index" class="nav-link">Productos</a>
+                            </li>
+                        }
                     </ul>
                 </div>
 
                 <div class="col-sm-8 col-lg-2 d-flex gap-5 align-items-center justify-content-center justify-content-sm-end">
-                    <ul class="d-flex justify-content-end list-unstyled m-0">
-                        <li>
-                            <a asp-controller="Cuenta" asp-action="IniciarSesion" class="p-2 mx-1" aria-label="My account">
-                                <svg width="24" height="24"><use xlink:href="#user"></use></svg>
-                            </a>
-                        </li>
+                    <ul class="d-flex justify-content-end list-unstyled m-0 align-items-center">
+                        @if (Context.Session.EstaAutenticado())
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="p-2 mx-1 d-flex align-items-center gap-1 text-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Mi cuenta">
+                                    <svg width="24" height="24"><use xlink:href="#user"></use></svg>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><span class="dropdown-item-text fw-bold">@Context.Session.GetString(SesionHelper.NombreUsuario)</span></li>
+                                    <li><span class="dropdown-item-text small text-muted">@Context.Session.GetString(SesionHelper.Rol)</span></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    @* Fabián: agregar aquí «Cambiar contraseña» (CU-05) *@
+                                    <li><a asp-controller="Cuenta" asp-action="CerrarSesion" class="dropdown-item">Cerrar sesión</a></li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <a asp-controller="Cuenta" asp-action="IniciarSesion" class="p-2 mx-1" aria-label="Iniciar sesión" title="Iniciar sesión">
+                                    <svg width="24" height="24"><use xlink:href="#user"></use></svg>
+                                </a>
+                            </li>
+                        }
                         <li>
                             <a href="#" class="p-2 mx-1">
                                 <svg width="24" height="24"><use xlink:href="#wishlist"></use></svg>
