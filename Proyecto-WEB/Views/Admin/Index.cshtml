@@ -1,0 +1,16 @@
+@using ProyectoFinal_WEB.Helpers
+@{
+    ViewData["Title"] = "Panel administrativo";
+}
+
+<section class="py-5">
+    <div class="container-lg">
+        <h2 class="mb-2">Panel administrativo</h2>
+        <p class="text-muted mb-4">Bienvenido, @Context.Session.GetString(SesionHelper.NombreUsuario).</p>
+
+        @* Pendiente: Keylor - accesos a Categorías (CU-10) y Productos (CU-11) *@
+        <div class="alert alert-info">
+            Desde aquí se administrarán las categorías, los productos, los pedidos y los usuarios.
+        </div>
+    </div>
+</section>

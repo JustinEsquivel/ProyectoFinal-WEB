@@ -361,3 +361,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+# Configuración personal de cada integrante (cadena de conexión, credenciales de correo)
+appsettings.Local.json
