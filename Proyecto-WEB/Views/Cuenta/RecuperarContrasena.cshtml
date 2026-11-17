@@ -13,6 +13,11 @@
                 <h2 class="auth-title">Recuperar contraseña</h2>
                 <p class="my-4">Para restablecer su contraseña, ingrese el correo electrónico con el que se registró.</p>
 
+                @if (TempData["MensajeError"] is string mensajeError)
+                {
+                    <div class="alert alert-warning text-start" role="alert">@mensajeError</div>
+                }
+
                 <form asp-action="RecuperarContrasena" method="post">
                     <div asp-validation-summary="ModelOnly" class="text-danger text-start"></div>
 

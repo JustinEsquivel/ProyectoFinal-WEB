@@ -332,7 +332,7 @@
                                     <li><span class="dropdown-item-text fw-bold">@Context.Session.GetString(SesionHelper.NombreUsuario)</span></li>
                                     <li><span class="dropdown-item-text small text-muted">@Context.Session.GetString(SesionHelper.Rol)</span></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    @* Fabián: agregar aquí «Cambiar contraseña» (CU-05) *@
+                                    <li><a asp-controller="Cuenta" asp-action="CambiarContrasena" class="dropdown-item">Cambiar contraseña</a></li>
                                     <li><a asp-controller="Cuenta" asp-action="CerrarSesion" class="dropdown-item">Cerrar sesión</a></li>
                                 </ul>
                             </li>
