@@ -17,6 +17,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddScoped<ISeguridadService, SeguridadService>();
 builder.Services.AddScoped<IBitacoraService, BitacoraService>();
+builder.Services.AddScoped<ICorreoService, CorreoService>();
 
 // Seguridad por medio de JWT: la WEB envía el token en el encabezado Authorization: Bearer
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

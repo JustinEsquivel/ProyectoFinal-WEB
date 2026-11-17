@@ -12,6 +12,7 @@ namespace ProyectoFinal_API.Services
         private const int TamanoSalt = 16;
         private const int TamanoHash = 32;
         private const int Iteraciones = 100000;
+        private const string AudienciaRecuperacion = "SuperTico_Recuperacion";
 
         /// <summary>
         /// Formato guardado: Base64(salt de 16 bytes + hash de 32 bytes), PBKDF2-SHA256 con 100000 iteraciones.
@@ -67,6 +68,50 @@ namespace ProyectoFinal_API.Services
                 signingCredentials: new SigningCredentials(clave, SecurityAlgorithms.HmacSha256));
 
             return (new JwtSecurityTokenHandler().WriteToken(token), expiracion);
+        }
+
+        /// <summary>
+        /// Usa una audiencia distinta a la del inicio de sesión, así este token no sirve
+        /// para llamar endpoints protegidos y el token de sesión no sirve para restablecer contraseñas.
+        /// </summary>
+        public string GenerarTokenRecuperacion(int usuarioId)
+        {
+            var minutos = _configuration.GetValue<int>("Recuperacion:MinutosExpiracion");
+            var clave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("Jwt:Clave")!));
+
+            var token = new JwtSecurityToken(
+                issuer: _configuration.GetValue<string>("Jwt:Emisor"),
+                audience: AudienciaRecuperacion,
+                claims: [new Claim(ClaimTypes.NameIdentifier, usuarioId.ToString())],
+                expires: DateTime.UtcNow.AddMinutes(minutos),
+                signingCredentials: new SigningCredentials(clave, SecurityAlgorithms.HmacSha256));
+
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public int? ValidarTokenRecuperacion(string token)
+        {
+            var parametros = new TokenValidationParameters
+            {
+                ValidateIssuer = true,
+                ValidateAudience = true,
+                ValidateLifetime = true,
+                ValidateIssuerSigningKey = true,
+                ValidIssuer = _configuration.GetValue<string>("Jwt:Emisor"),
+                ValidAudience = AudienciaRecuperacion,
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration.GetValue<string>("Jwt:Clave")!)),
+                ClockSkew = TimeSpan.Zero
+            };
+
+            try
+            {
+                var principal = new JwtSecurityTokenHandler().ValidateToken(token, parametros, out _);
+                return int.TryParse(principal.FindFirstValue(ClaimTypes.NameIdentifier), out var usuarioId) ? usuarioId : null;
+            }
+            catch (Exception ex) when (ex is SecurityTokenException or ArgumentException)
+            {
+                return null;
+            }
         }
     }
 }
