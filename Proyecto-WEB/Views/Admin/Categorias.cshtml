@@ -1,0 +1,52 @@
+﻿@model List<ProyectoFinal_WEB.Models.Admin.CategoriaFila>
+@{
+    ViewData["Title"] = "Categorías";
+}
+
+<section class="container py-4">
+    <h1>Categorías</h1>
+    <partial name="_MensajesAdmin" />
+
+    <a asp-action="FormularioCategoria" class="btn btn-primary mb-3">Crear categoría</a>
+    <a asp-action="Index" class="btn btn-outline-secondary mb-3">Volver al panel</a>
+
+    @if (Model.Count == 0 && ViewBag.Error == null)
+    {
+        <p>No hay categorías registradas.</p>
+    }
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var fila in Model)
+                {
+                    <tr>
+                        <td>@fila.Nombre</td>
+                        <td>@fila.Descripcion</td>
+                        <td>
+                            <a asp-action="FormularioCategoria"
+                               asp-route-id="@fila.CategoriaId"
+                               class="btn btn-sm btn-outline-primary">Editar</a>
+
+                            <form asp-action="EliminarCategoria"
+                                  asp-route-id="@fila.CategoriaId"
+                                  method="post" class="d-inline"
+                                  onsubmit="return confirm('¿Desea eliminar esta categoría?');">
+                                <button type="submit" class="btn btn-sm btn-outline-danger">
+                                    Eliminar
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

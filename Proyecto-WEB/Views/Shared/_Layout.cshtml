@@ -300,11 +300,16 @@
                     <ul class="navbar-nav list-unstyled d-flex flex-row gap-3 gap-lg-3 justify-content-center flex-wrap align-items-center mb-0 fw-bold text-uppercase text-dark fs-7">
                         @if (Context.Session.EsAdministrador())
                         {
-                            @* Menú del Administrador - Keylor agrega aquí Categorías, Productos, Pedidos y Usuarios *@
                             <li class="nav-item">
                                 <a asp-controller="Admin" asp-action="Index" class="nav-link">Panel</a>
                             </li>
-                        }
+                            <li class="nav-item">
+                                <a asp-controller="Admin" asp-action="Categorias" class="nav-link">Categorías</a>
+                            </li>
+                            <li class="nav-item">
+                                <a asp-controller="Admin" asp-action="Productos" class="nav-link">Productos e inventario</a>
+                            </li>
+}
                         else
                         {
                             @* Menú del Visitante y del Cliente *@

@@ -1,0 +1,68 @@
+﻿@model List<ProyectoFinal_WEB.Models.Admin.ProductoFila>
+@{
+    ViewData["Title"] = "Productos e inventario";
+    var umbral = (int)ViewBag.Umbral;
+}
+
+<section class="container py-4">
+    <h1>Productos e inventario</h1>
+    <partial name="_MensajesAdmin" />
+
+    <a asp-action="FormularioProducto" class="btn btn-primary mb-3">Crear producto</a>
+    <a asp-action="Index" class="btn btn-outline-secondary mb-3">Volver al panel</a>
+
+    @if (Model.Count == 0 && ViewBag.Error == null)
+    {
+        <p>No hay productos registrados.</p>
+    }
+
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Categoría</th>
+                    <th>Precio</th>
+                    <th>Existencias</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var fila in Model)
+                {
+                    var bajo = fila.Activo && fila.Existencias.GetValueOrDefault() <= umbral;
+
+                    <tr class="@(bajo ? "table-warning" : "")">
+                        <td>@fila.Nombre</td>
+                        <td>@fila.CategoriaNombre</td>
+                        <td>@fila.Precio.ToString("N2")</td>
+                        <td>
+                            @fila.Existencias
+                            @if (bajo)
+                            {
+                                <span class="badge bg-warning text-dark">Stock bajo</span>
+                            }
+                        </td>
+                        <td>@(fila.Activo ? "Activo" : "Inactivo")</td>
+                        <td>
+                            <a asp-action="FormularioProducto"
+                               asp-route-id="@fila.ProductoId"
+                               class="btn btn-sm btn-outline-primary">Editar</a>
+
+                            <form asp-action="CambiarEstadoProducto"
+                                  asp-route-id="@fila.ProductoId"
+                                  method="post" class="d-inline">
+                                <input type="hidden" name="activo"
+                                       value="@(fila.Activo ? "false" : "true")" />
+                                <button type="submit" class="btn btn-sm btn-outline-secondary">
+                                    @(fila.Activo ? "Desactivar" : "Activar")
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>

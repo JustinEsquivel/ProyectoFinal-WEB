@@ -1,0 +1,53 @@
+﻿@model ProyectoFinal_WEB.Models.Admin.ProductoForm
+@{ ViewData["Title"] = ViewBag.Id == null ? "Crear producto" : "Editar producto"; }
+
+<section class="container py-4">
+    <h1>@ViewData["Title"]</h1>
+
+    <form asp-action="GuardarProducto" asp-route-id="@ViewBag.Id"
+          method="post" class="col-lg-7">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="mb-3">
+            <label asp-for="CategoriaId" class="form-label">Categoría</label>
+            <select asp-for="CategoriaId" asp-items="ViewBag.Categorias" class="form-select">
+                <option value="">Seleccione una categoría</option>
+            </select>
+            <span asp-validation-for="CategoriaId" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Nombre" class="form-label">Nombre</label>
+            <input asp-for="Nombre" class="form-control" />
+            <span asp-validation-for="Nombre" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Descripcion" class="form-label">Descripción</label>
+            <textarea asp-for="Descripcion" class="form-control"></textarea>
+            <span asp-validation-for="Descripcion" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label for="precioTexto" class="form-label">Precio</label>
+            <input id="precioTexto" name="precioTexto" value="@ViewBag.PrecioTexto"
+                   type="text" inputmode="decimal" class="form-control" />
+            <span asp-validation-for="Precio" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Existencias" class="form-label">Existencias</label>
+            <input asp-for="Existencias" type="number" min="0" class="form-control" />
+            <span asp-validation-for="Existencias" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ImagenUrl" class="form-label">URL de imagen</label>
+            <input asp-for="ImagenUrl" class="form-control" />
+            <span asp-validation-for="ImagenUrl" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-action="Productos" class="btn btn-outline-secondary">Cancelar</a>
+    </form>
+</section>

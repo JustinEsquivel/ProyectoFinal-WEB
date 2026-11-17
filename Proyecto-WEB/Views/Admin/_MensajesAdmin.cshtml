@@ -1,0 +1,14 @@
+﻿@if (TempData["ExitoAdmin"] is string exito)
+{
+    <div class="alert alert-success" role="status">@exito</div>
+}
+
+@if (TempData["ErrorAdmin"] is string error)
+{
+    <div class="alert alert-danger" role="alert">@error</div>
+}
+
+@if (ViewBag.Error is string errorListado)
+{
+    <div class="alert alert-danger" role="alert">@errorListado</div>
+}
