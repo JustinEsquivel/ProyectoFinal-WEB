@@ -1,0 +1,93 @@
+@model CarritoViewModel
+
+@{
+    ViewData["Title"] = "Mi carrito";
+}
+
+<section class="container py-5">
+    <h1>Mi carrito</h1>
+
+    @if (TempData["MensajeCarrito"] is string mensaje)
+    {
+        <div class="alert alert-success" role="status">@mensaje</div>
+    }
+
+    @if (TempData["ErrorCarrito"] is string error)
+    {
+        <div class="alert alert-warning" role="alert">@error</div>
+    }
+
+    @if (Model.Productos.Count == 0)
+    {
+        <p>Su carrito está vacío.</p>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead>
+                    <tr>
+                        <th scope="col">Producto</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Subtotal</th>
+                        <th scope="col">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var producto in Model.Productos)
+                    {
+                        <tr>
+                            <td>
+                                <span class="fw-bold">@producto.Nombre</span>
+                                @if (!producto.Activo)
+                                {
+                                    <p class="text-danger mb-0">Producto no disponible.</p>
+                                }
+                                else if (producto.Existencias == 0)
+                                {
+                                    <p class="text-danger mb-0">Agotado.</p>
+                                }
+                                else
+                                {
+                                    <p class="small mb-0">Disponibles: @producto.Existencias</p>
+                                    @if (producto.Cantidad > producto.Existencias)
+                                    {
+                                        <p class="text-danger mb-0">Reduzca la cantidad según las existencias.</p>
+                                    }
+                                }
+                            </td>
+                            <td>₡@producto.Precio.ToString("N2")</td>
+                            <td>
+                                <form asp-controller="Carrito" asp-action="Modificar" method="post"
+                                      class="d-flex gap-2 align-items-center">
+                                    <input type="hidden" name="ProductoId" value="@producto.ProductoId">
+                                    <input type="number" name="Cantidad" value="@producto.Cantidad"
+                                           min="1" max="@producto.Existencias" step="1" required
+                                           class="form-control" style="width: 90px;"
+                                           aria-label="Cantidad de @producto.Nombre"
+                                           disabled="@(!producto.Activo || producto.Existencias == 0)">
+                                    <button type="submit" class="btn btn-outline-primary"
+                                            disabled="@(!producto.Activo || producto.Existencias == 0)">
+                                        Actualizar
+                                    </button>
+                                </form>
+                            </td>
+                            <td>₡@producto.Subtotal.ToString("N2")</td>
+                            <td>
+                                <form asp-controller="Carrito" asp-action="Eliminar" method="post">
+                                    <input type="hidden" name="ProductoId" value="@producto.ProductoId">
+                                    <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+        <p class="fs-4 fw-bold text-end">Total: ₡@Model.Total.ToString("N2")</p>
+    }
+
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Seguir comprando</a>
+</section>

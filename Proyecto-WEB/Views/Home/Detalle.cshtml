@@ -1,0 +1,59 @@
+@model ProductoCatalogoViewModel
+
+@{
+    ViewData["Title"] = Model.Nombre;
+}
+
+<section class="container py-5">
+    <div class="row g-4">
+        <div class="col-md-6">
+            @if (!string.IsNullOrWhiteSpace(Model.ImagenUrl))
+            {
+                <img src="@Model.ImagenUrl"
+                     alt="@Model.Nombre"
+                     class="img-fluid"
+                     style="max-height: 350px; object-fit: contain;">
+            }
+            else
+            {
+                <p>Sin imagen disponible</p>
+            }
+        </div>
+
+        <div class="col-md-6">
+            <p class="text-muted">@Model.CategoriaNombre</p>
+            <h1>@Model.Nombre</h1>
+            <p>@Model.Descripcion</p>
+
+            <p class="fs-4 fw-bold">
+                ₡@Model.Precio.ToString("N2")
+            </p>
+
+            @if (Model.Existencias == 0)
+            {
+                <p><span class="badge bg-danger">Agotado</span></p>
+            }
+            else
+            {
+                <p>Disponibles: @Model.Existencias</p>
+
+                <form asp-controller="Carrito" asp-action="Agregar" method="post" class="mb-3">
+                    <input type="hidden" name="ProductoId" value="@Model.ProductoId">
+                    <label for="cantidad" class="form-label">Cantidad</label>
+                    <div class="d-flex gap-2">
+                        <input id="cantidad" type="number" name="Cantidad" value="1"
+                               min="1" max="@Model.Existencias" step="1" required
+                               class="form-control" style="width: 100px;">
+                        <button type="submit" class="btn btn-primary">Agregar al carrito</button>
+                    </div>
+                </form>
+            }
+
+            <a asp-controller="Home"
+               asp-action="Index"
+               class="btn btn-primary">
+                Volver al catálogo
+            </a>
+        </div>
+    </div>
+</section>

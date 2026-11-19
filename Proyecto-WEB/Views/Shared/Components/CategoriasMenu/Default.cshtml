@@ -1,0 +1,24 @@
+@model List<CategoriaCatalogoViewModel>
+
+<ul class="navbar-nav justify-content-end menu-list list-unstyled d-flex gap-md-3 mb-0">
+    <li class="nav-item border-dashed">
+        <a asp-controller="Home"
+           asp-action="Index"
+           class="nav-link text-dark p-2">
+            Todas las categorías
+        </a>
+    </li>
+
+    @foreach (var categoria in Model)
+    {
+        <li class="nav-item border-dashed">
+            <a asp-controller="Home"
+               asp-action="Index"
+               asp-route-categoriaId="@categoria.CategoriaId"
+               asp-route-busqueda="@Context.Request.Query["busqueda"]"
+               class="nav-link text-dark p-2">
+                @categoria.Nombre
+            </a>
+        </li>
+    }
+</ul>
